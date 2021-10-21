@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
-from django.forms import TextInput, Textarea 
+
 
 class UserAdminConfig(UserAdmin):
     search_fields = ('email', 'username',)
@@ -9,7 +9,7 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'username', 'is_active')
     fieldsets = (
         ('Account', {'fields': ('email', 'username', 'date_joined',)}),
-        ('Permissions', {'fields': ('is_staff', 'is_active',)}), 
+        ('Permissions', {'fields': ('is_staff', 'is_active',)}),
     )
 
 
