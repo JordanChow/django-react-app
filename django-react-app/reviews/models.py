@@ -6,7 +6,7 @@ from django.db import models
 class Review(models.Model):
     #album = models.ForeignKey("albums.Album", on_delete=models.CASCADE)
     #user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    text = models.CharField(max_length=10000)
+    text = models.TextField()
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return f'{self.user} wrote a review for {self.album}'
