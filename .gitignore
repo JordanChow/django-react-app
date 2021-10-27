@@ -100,6 +100,12 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
+# Secrets #
+*.py[co]
+*.sw[po]
+*~
+secrets.json
+
 # React GitIgnore below #
 .DS_STORE
 node_modules

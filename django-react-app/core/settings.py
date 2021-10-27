@@ -52,7 +52,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'knox.auth.TokenAuthentication',
     ),
-    'DATETIME_FORMAT': "M j, Y",
+    'DATETIME_FORMAT': "M j, Y"
 }
 
 MIDDLEWARE = [

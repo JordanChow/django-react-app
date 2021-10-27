@@ -27,12 +27,15 @@ export default class LoginPage extends Component {
     handleLogin = () => {
         const requestOptions = {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify(this.state)
         };
-        fetch('/api/users/login/', requestOptions)
+        fetch('/users/login/', requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data)       
+            .then(data => this.props.history.push("")       
         );
     }
 
@@ -44,11 +47,6 @@ export default class LoginPage extends Component {
                     <Typography component="h4" variant="h4">
                         Login
                     </Typography>
-                </Grid>
-                <Grid item xs={12} align="center">
-                    <FormControl component="fieldset">
-    
-                    </FormControl>
                 </Grid>
                 <Grid item xs={12} align="center">
                     <FormControl>
@@ -104,6 +102,11 @@ export default class LoginPage extends Component {
                         variant="contained"
                         color="primary"
                         onClick={this.handleLogin}
+                        disabled={
+                            !(this.state.email && 
+                            this.state.username &&
+                            this.state.password)
+                        }
                     >
                         LOGIN
                     </Button>
