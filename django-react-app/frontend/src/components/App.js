@@ -6,8 +6,6 @@ import LoginPage from "./LoginPage";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RegisterPage from './RegisterPage';
 
-
-
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -15,17 +13,19 @@ export default class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/" component={HomePage}/>
-                    <Route path="/profile" component={ProfilePage}/>
-                    <Route path="/login" component={LoginPage}/>
-                    <Route path="/register" component={RegisterPage}/>
-                </Switch>
-            </BrowserRouter>
+            <React.Fragment> 
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path="/" component={HomePage}/>
+                        <Route path="/profile" component={ProfilePage}/>
+                        <Route path="/login" component={LoginPage}/>
+                        <Route path="/register" component={RegisterPage}/>
+                    </Switch>
+                </BrowserRouter>
+            </React.Fragment>
         );
     }
 }
 
-const appDiv = document.getElementById("app");
-render(<App />, appDiv);
+// const appDiv = document.getElementById("app");
+// render(<App />, appDiv);

@@ -7,6 +7,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Link } from "react-router-dom";
+import store from '../redux/store';
 
 export default class LoginPage extends Component {
     constructor(props) {
@@ -25,6 +26,13 @@ export default class LoginPage extends Component {
     }
     
     handleLogin = () => {
+        // const user = {
+        //     username: this.state.username,
+        //     email: this.state.email,
+        //     password: this.state.password
+        // };
+
+        // store.dispatch()
         const requestOptions = {
             method: "POST",
             headers: {
