@@ -5,6 +5,8 @@ import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RegisterPage from './RegisterPage';
+import { Provider } from 'react-redux';
+import {store} from "../redux/store"
 
 export default class App extends Component {
     constructor(props) {
@@ -13,7 +15,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <React.Fragment> 
+            <Provider store={store}> 
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/" component={HomePage}/>
@@ -22,7 +24,7 @@ export default class App extends Component {
                         <Route path="/register" component={RegisterPage}/>
                     </Switch>
                 </BrowserRouter>
-            </React.Fragment>
+            </Provider>
         );
     }
 }

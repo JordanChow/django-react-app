@@ -1,20 +1,22 @@
 import { Types } from "../../constants/actionTypes";
 
 const initialState = {
-    user: {
-    }
+    token: ""
   };
   
   export default function userReducer(state = initialState, action) {
     switch(action.type) {
       case Types.LOGIN_USER:
-        break;
+        return {
+          ...state,
+          token: action.payload.token
+        }
       case Types.LOGOUT_USER:
         break;
       case Types.REGISTER_USER:
         break;
       default:
-        return state
+        return state;
     }
       
     return state;
