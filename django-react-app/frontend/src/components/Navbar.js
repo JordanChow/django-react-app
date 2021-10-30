@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import store from '../redux/store';
 
 export default function Navbar() {
     return (
@@ -17,16 +17,18 @@ export default function Navbar() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Insert_Logo
             </Typography>
-            <Button 
-                color="inherit"
-                to="/register"
-                component={Link}
-            >Register</Button>
-            <Button 
-                color="inherit"
-                to="/login"
-                component={Link}
-            >Login</Button>
+            <div>
+                <Button 
+                    color="inherit"
+                    to="/register"
+                    component={Link}
+                >Register</Button>
+                <Button 
+                    color="inherit"
+                    to="/login"
+                    component={Link}
+                >Login</Button>
+            </div>
             </Toolbar>
         </AppBar>
         </Box>

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -7,9 +7,13 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Link } from "react-router-dom";
-import store from '../redux/store';
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/users';
+import { Redirect } from 'react-router';
 
-export default class LoginPage extends Component {
+
+
+class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,31 +24,28 @@ export default class LoginPage extends Component {
     }
 
     handleChange = (e) => {
+        e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         });
     }
     
     handleLogin = () => {
-        // const user = {
-        //     username: this.state.username,
-        //     email: this.state.email,
-        //     password: this.state.password
-        // };
+        this.props.loginUser({
+            email: this.state.email,
+            password: this.state.password,
+        });
 
-        // store.dispatch()
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(this.state)
-        };
-        fetch('/users/login/', requestOptions)
-            .then(response => response.json())
-            .then(data => this.props.history.push("")       
-        );
+        if (JSON.parse(localStorage.getItem("user"))){
+            // if user logged in?
+        } 
+        else {
+            this.setState({
+                username: "",
+                email: "",
+                password: ""
+            })
+        }
     }
 
     render()
@@ -123,3 +124,5 @@ export default class LoginPage extends Component {
         );
     }
 }
+
+export default connect(null, { loginUser })(LoginPage);

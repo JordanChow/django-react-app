@@ -6,7 +6,7 @@ import LoginPage from "./LoginPage";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RegisterPage from './RegisterPage';
 import { Provider } from 'react-redux';
-import {store} from "../redux/store"
+import store from "../redux/store"
 
 export default class App extends Component {
     constructor(props) {
@@ -28,6 +28,3 @@ export default class App extends Component {
         );
     }
 }
-
-// const appDiv = document.getElementById("app");
-// render(<App />, appDiv);
