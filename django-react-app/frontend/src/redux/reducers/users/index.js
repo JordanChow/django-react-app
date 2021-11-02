@@ -21,7 +21,17 @@ export default function userReducer(state = initialState, action) {
         isLoggedIn: false
       };
     case Types.REGISTER_USER:
-      break;
+      return {
+        ...state,
+        user: action.payload,
+        isLoggedIn: true
+      }
+    case Types.LOGIN_FAILED:
+      return {
+        ...state,
+        user: null,
+        isLoggedIn: false
+      }
     default:
       return state;
     }

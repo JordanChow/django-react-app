@@ -9,8 +9,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/actions/users';
-import { Redirect } from 'react-router';
-
 
 
 class LoginPage extends Component {
@@ -35,17 +33,6 @@ class LoginPage extends Component {
             email: this.state.email,
             password: this.state.password,
         });
-
-        if (JSON.parse(localStorage.getItem("user"))){
-            // if user logged in?
-        } 
-        else {
-            this.setState({
-                username: "",
-                email: "",
-                password: ""
-            })
-        }
     }
 
     render()
