@@ -9,7 +9,7 @@ export default function albumReducer(state = initialState, action) {
     case Types.GET_ALBUMS:
       return {
         ...state,
-        albums: action.payload
+        albums: action.payload.message
       }
     default:
       return state;

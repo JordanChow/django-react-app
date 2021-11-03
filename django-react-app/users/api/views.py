@@ -63,7 +63,7 @@ class UserAPI(APIView):
 
 # Login user (verify)
 class LoginUser(generics.GenericAPIView):
-    serializer_class = LoginUserSerializer
+    serializer_class = LoginUserSerializer        
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -73,3 +73,4 @@ class LoginUser(generics.GenericAPIView):
             "user": UserModelSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
+    
