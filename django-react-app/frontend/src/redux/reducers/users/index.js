@@ -1,44 +1,77 @@
 import { Types } from "../../../constants/actionTypes";
 
-const user = JSON.parse(localStorage.getItem("user"));
-
-const initialState = user 
-  ? {isLoggedIn:true, user, error: null} 
-  : {isLoggedIn: false, user: null, error: null};
+const initialState = {
+  user: null,
+  loading: false,
+  error: null,
+}
   
 export default function userReducer(state = initialState, action) {
   switch(action.type) {
-    case Types.LOGIN_USER:
+    // LOGIN
+    case Types.LOGIN_USER_REQUEST:
       return {
         ...state,
-        user: action.payload,
-        isLoggedIn: true
+        loading: true,
+        error: null
       }
-    case Types.LOGOUT_USER:
+    case Types.LOGIN_USER_SUCCESS:
       return {
         ...state,
-        user: null,
-        isLoggedIn: false
-      };
-    case Types.REGISTER_USER:
-      return {
-        ...state,
-        user: action.payload,
-        isLoggedIn: true
+        loading: false,
+        error: null,
+        user: action.payload.user
       }
-    case Types.LOGIN_FAILED:
+    case Types.LOGIN_USER_FAILURE:
       return {
         ...state,
-        user: null,
-        isLoggedIn: false,
+        loading: false,
         error: action.payload
       }
-    case Types.REGISTER_FAILED:
+    
+    // LOGOUT
+    case Types.LOGOUT_USER_REQUEST:
       return {
         ...state,
-        user: null,
-        isLoggedIn: false
+        loading: true,
+        error: null
       }
+    case Types.LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        user: null
+      }
+    case Types.LOGOUT_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      } 
+
+    // REGISTER
+    case Types.REGISTER_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+    case Types.REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        user: action.payload.user
+      }
+    case Types.REGISTER_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      } 
+
+    // DEFAULT  
     default:
       return state;
     }

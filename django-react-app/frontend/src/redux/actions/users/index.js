@@ -1,52 +1,63 @@
+import axios from "axios";
 import { Types } from "../../../constants/actionTypes"
-import { loginAPI, logoutAPI, registerAPI } from "../../../api/userAPI";
 
+export const loginUser = user => async dispatch => {
+    dispatch({
+        type: Types.LOGIN_USER_REQUEST
+    });
 
-export const loginUser = user => dispatch => {
-    loginAPI(user)
-    .then(response => {
-        if (response.data.token) {
-            localStorage.setItem("user",
-            JSON.stringify(response.data.user));
-            dispatch({
-                type: Types.LOGIN_USER, 
-                payload: response.data.user
-            })
-        }
+    await axios.post("users/login/", user)
+    .then(response => {   
+        dispatch({
+            type: Types.LOGIN_USER_SUCCESS, 
+            payload: response.data
+        })
     })
     .catch(error => {
         dispatch({
-            type: Types.LOGIN_FAILED,
+            type: Types.LOGIN_USER_FAILURE,
             payload: error
         })
     })
-    return Promise.resolve()
+    return Promise.resolve();
 };
 
-export const logoutUser = () => dispatch => {
-    logoutAPI()
+export const logoutUser = () => async dispatch => {
+    dispatch({
+        type: Types.LOGOUT_USER_REQUEST
+    });
+
+    await axios.post("users/logout/")
     .then(() => {
-        localStorage.removeItem("user");
         dispatch({
-            type: Types.LOGOUT_USER
+            type: Types.LOGOUT_USER_SUCCESS
         });
-    });
+    })
+    .catch(error => {
+        dispatch({
+            type: Types.LOGOUT_USER_FAILURE,
+            payload: error
+        });
+    })
 };
 
-export const registerUser = (user) => dispatch => {
-    registerAPI(user)
-    .then((response) => {
-        if(response.data.token)
-        {
-            dispatch({
-                type: Types.REGISTER_USER, 
-                payload: response.data
-            })
-        }
-        else {
-            dispatch({
-                type: Types.REGISTER_FAILED
-            })
-        }
+export const registerUser = (user) => async dispatch => {
+    dispatch({
+        type: Types.REGISTER_USER_REQUEST
     });
-};
+    
+    await axios.post("users/register/", user)
+    .then((response) => {
+        dispatch({
+            type: Types.REGISTER_USER_SUCCESS, 
+            payload: response.data
+        })
+    })
+    .catch(error => {
+        dispatch({
+            type: Types.REGISTER_USER_FAILURE,
+            payload: error
+        })
+    });
+}
+

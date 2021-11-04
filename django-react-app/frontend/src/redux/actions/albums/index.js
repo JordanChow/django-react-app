@@ -1,13 +1,45 @@
 import { Types } from "../../../constants/actionTypes"
-import { getAlbumsAPI } from "../../../api/albumAPI";
-import React from 'react';
+import axios from "axios";
 
-export const getAllAlbums = () => (dispatch) => {
-    getAlbumsAPI()
+// Get all albums
+export const getAllAlbums = () => async (dispatch) => {
+    dispatch({
+        type: Types.GET_ALBUMS_REQUEST
+    });
+
+    await axios.get("albums/")
     .then(response => {
         dispatch({
-            type: Types.GET_ALBUMS,
+            type: Types.GET_ALBUMS_SUCCESS,
             payload: response.data
         });
+    })
+    .catch(error => {
+        dispatch({
+            type: Types.GET_ALBUMS_FAILURE,
+            payload: error
+        });
+    })
+};
+
+
+// Get album based on id
+export const getAlbum = (id) => async (dispatch) => {
+    dispatch({
+        type: Types.GET_ALBUM_REQUEST
     });
+
+    await axios.get(`albums/${id}/`)
+    .then(response => {
+        dispatch({
+            type: Types.GET_ALBUM_SUCCESS,
+            payload: response.data
+        });
+    })
+    .catch(error => {
+        dispatch({
+            type: Types.GET_ALBUM_FAILURE,
+            payload: error
+        });
+    })
 };

@@ -1,47 +1,36 @@
 import axios from 'axios';
-import React, { Component } from 'react'; 
+import React, { Component, useEffect } from 'react'; 
 import Navbar from './Navbar';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getAllAlbums } from '../redux/actions/albums';
 
 
-class HomePage extends Component {
-    constructor(props) {
-        super(props);
-    }
+const HomePage = () => {
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state.albumReducer);
     
-    componentDidMount() {
-        this.props.getAllAlbums()
-    };
+    useEffect(() => {
+        dispatch(getAllAlbums());
+    }, []);
     
-    render() {
-        return (
-            <React.Fragment>
-                <Navbar />
-                <div>
-                    {this.props.albums.length > 0 ? 
-                    <ul>{this.props.albums.map((album, index) => (
-                        <li key="{album.id}">{album.title}</li>
-                    ))}</ul> : 
-                    <div></div>}
-                </div>
-            </React.Fragment>
-        )
-    };
-}
-
-const mapStateToProps = state => {
-    return {
-        albums: state.albumReducer.albums
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        getAllAlbums: () => {
-            dispatch(getAllAlbums())
+    const renderAlbums = () => {
+        if (state.loading) {
+            return <div></div>
         }
+
+        return state.albums.map((el) => {
+            return <li key="{el.id}">{el.title}</li>
+        })
     }
+
+    return (
+        <React.Fragment>
+            <Navbar />
+            <div>
+                {renderAlbums()}
+            </div>
+        </React.Fragment>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default HomePage;
