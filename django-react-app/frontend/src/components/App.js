@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { render } from "react-dom";
 import HomePage from "./HomePage";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RegisterPage from './RegisterPage';
 import { Provider } from 'react-redux';
-import store from "../redux/store"
+import store from "../redux/store";
+
 
 export default class App extends Component {
     constructor(props) {

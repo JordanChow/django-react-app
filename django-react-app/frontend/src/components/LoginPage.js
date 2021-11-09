@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -7,11 +7,14 @@ import FormControl from "@material-ui/core/FormControl";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions/users';
+import store from "../redux/store";
+import { useHistory } from 'react-router-dom';
+
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-    const storeState = useSelector(state => state.userReducer);
-    
+    const history = useHistory();
+
     const [state, setState] = useState({
         username: "",
         email: "",
@@ -25,15 +28,27 @@ const LoginPage = () => {
         });
     }
     
-    const handleLogin = () => {
+    const handleLogin = async () => {
         dispatch(loginUser({
             username: state.username,
             email: state.email,
             password: state.password
         }))
         .then(() => {
-            console.log(storeState);
-        })
+            const userData = store.getState().userReducer;
+            if (userData.user) {
+                history.goBack();
+            }
+            else if (userData.error) {
+                console.log(userData.error);
+                setState({
+                    ...state, 
+                    username: "",
+                    email: "",
+                    password: ""
+                });
+            }
+        });
     }
 
     return (

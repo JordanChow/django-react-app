@@ -25,10 +25,11 @@ export default function userReducer(state = initialState, action) {
     case Types.LOGIN_USER_FAILURE:
       return {
         ...state,
+        user: null,
         loading: false,
-        error: action.payload
+        error: action.payload.message
       }
-    
+
     // LOGOUT
     case Types.LOGOUT_USER_REQUEST:
       return {

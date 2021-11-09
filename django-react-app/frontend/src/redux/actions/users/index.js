@@ -1,17 +1,19 @@
 import axios from "axios";
 import { Types } from "../../../constants/actionTypes"
 
-export const loginUser = user => async dispatch => {
+export const loginUser = user => async (dispatch) => {
     dispatch({
         type: Types.LOGIN_USER_REQUEST
     });
 
     await axios.post("users/login/", user)
-    .then(response => {   
+    .then(response => {  
+        console.log("RESPONSE"); 
         dispatch({
             type: Types.LOGIN_USER_SUCCESS, 
             payload: response.data
-        })
+        });
+        return Promise.resolve();
     })
     .catch(error => {
         dispatch({
@@ -19,10 +21,9 @@ export const loginUser = user => async dispatch => {
             payload: error
         })
     })
-    return Promise.resolve();
 };
 
-export const logoutUser = () => async dispatch => {
+export const logoutUser = () => async (dispatch) => {
     dispatch({
         type: Types.LOGOUT_USER_REQUEST
     });
@@ -41,7 +42,7 @@ export const logoutUser = () => async dispatch => {
     })
 };
 
-export const registerUser = (user) => async dispatch => {
+export const registerUser = (user) => async (dispatch) => {
     dispatch({
         type: Types.REGISTER_USER_REQUEST
     });
