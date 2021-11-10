@@ -4,6 +4,7 @@ const initialState = {
   user: null,
   loading: false,
   error: null,
+  token: null
 }
   
 export default function userReducer(state = initialState, action) {
@@ -20,7 +21,8 @@ export default function userReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        user: action.payload.user
+        user: action.payload.user,
+        token: action.payload.token
       }
     case Types.LOGIN_USER_FAILURE:
       return {
@@ -42,7 +44,8 @@ export default function userReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        user: null
+        user: null,
+        token: null
       }
     case Types.LOGOUT_USER_FAILURE:
       return {

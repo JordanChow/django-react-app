@@ -5,8 +5,8 @@ import LoginPage from "./LoginPage";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RegisterPage from './RegisterPage';
 import { Provider } from 'react-redux';
-import store from "../redux/store";
-
+import { store, persistor }from "../redux/store";
+import { PersistGate } from 'redux-persist/integration/react';
 
 export default class App extends Component {
     constructor(props) {
@@ -17,12 +17,14 @@ export default class App extends Component {
         return (
             <Provider store={store}> 
                 <BrowserRouter>
-                    <Switch>
-                        <Route exact path="/" component={HomePage}/>
-                        <Route path="/profile" component={ProfilePage}/>
-                        <Route path="/login" component={LoginPage}/>
-                        <Route path="/register" component={RegisterPage}/>
-                    </Switch>
+                    <PersistGate persistor={persistor}>
+                        <Switch>
+                            <Route exact path="/" component={HomePage}/>
+                            <Route path="/profile" component={ProfilePage}/>
+                            <Route path="/login" component={LoginPage}/>
+                            <Route path="/register" component={RegisterPage}/>
+                        </Switch>
+                    </PersistGate>
                 </BrowserRouter>
             </Provider>
         );

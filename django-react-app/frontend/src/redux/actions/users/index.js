@@ -8,7 +8,6 @@ export const loginUser = user => async (dispatch) => {
 
     await axios.post("users/login/", user)
     .then(response => {  
-        console.log("RESPONSE"); 
         dispatch({
             type: Types.LOGIN_USER_SUCCESS, 
             payload: response.data
@@ -23,12 +22,17 @@ export const loginUser = user => async (dispatch) => {
     })
 };
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = (token) => async (dispatch) => {
     dispatch({
         type: Types.LOGOUT_USER_REQUEST
     });
 
-    await axios.post("users/logout/")
+    await axios.post("users/logout/", {}, {
+            headers: {
+                'Authorization': `Token ${token}` 
+            }
+        }
+    )
     .then(() => {
         dispatch({
             type: Types.LOGOUT_USER_SUCCESS

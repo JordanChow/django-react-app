@@ -7,7 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions/users';
-import store from "../redux/store";
+import { store } from "../redux/store";
 import { useHistory } from 'react-router-dom';
 
 
@@ -29,7 +29,7 @@ const LoginPage = () => {
     }
     
     const handleLogin = async () => {
-        dispatch(loginUser({
+        await dispatch(loginUser({
             username: state.username,
             email: state.email,
             password: state.password

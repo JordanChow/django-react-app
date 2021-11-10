@@ -10,14 +10,15 @@ import Button from '@mui/material/Button';
 
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
+import { logoutUser } from '../redux/actions/users';
 
 
 const Navbar = () => {
-    const user = useSelector(state => state.userReducer.user);
+    const userData = useSelector(state => state.userReducer);
     const history = useHistory();
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     
     const handleMenu = (event) => {
@@ -26,6 +27,10 @@ const Navbar = () => {
 
     const handleProfile = () => {
         history.push("/profile");
+    }
+
+    const handleLogout = async () => {
+        await dispatch(logoutUser(userData.token));
     }
     
     const handleClose = () => {
@@ -56,11 +61,11 @@ const Navbar = () => {
                     color="inherit"
                     aria-controls="menu-navbar"
                     aria-haspopup="true"     
-                    onClick={handleProfile}
+                    onClick={handleMenu}
                 >
                     <AccountCircle />
                 </IconButton>
-                {/* <Menu
+                <Menu
                     id="menu-navbar"
                     anchorEl={anchorEl}
                     anchorOrigin={{
@@ -75,9 +80,9 @@ const Navbar = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu> */}
+                    <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
             </React.Fragment>
         )
     }
@@ -89,7 +94,7 @@ const Navbar = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Insert_Logo
                     </Typography>
-                    {user ? loggedIn() : loggedOut()}
+                    {userData.user ? loggedIn() : loggedOut()}
                 </Toolbar>
             </AppBar>
         </Box>

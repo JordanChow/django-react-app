@@ -13,7 +13,7 @@ export default function Albums() {
     
     const renderAlbums = () => {
         if (state.loading) {
-            return <div></div>
+            return <div>Loading...</div>
         }
 
         return state.albums.map((el) => {
