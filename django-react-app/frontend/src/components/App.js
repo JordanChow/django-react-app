@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HomePage from "./HomePage";
+import Navbar from "./Navbar";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -18,6 +19,7 @@ export default class App extends Component {
             <Provider store={store}> 
                 <BrowserRouter>
                     <PersistGate persistor={persistor}>
+                        <Navbar />
                         <Switch>
                             <Route exact path="/" component={HomePage}/>
                             <Route path="/profile" component={ProfilePage}/>

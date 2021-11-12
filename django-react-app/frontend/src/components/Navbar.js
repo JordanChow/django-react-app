@@ -56,7 +56,7 @@ const Navbar = () => {
     
     const loggedIn = () => {
         return (
-            <React.Fragment>
+            <>
                 <IconButton 
                     color="inherit"
                     aria-controls="menu-navbar"
@@ -83,7 +83,7 @@ const Navbar = () => {
                     <MenuItem onClick={handleProfile}>Profile</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
-            </React.Fragment>
+            </>
         )
     }
 
