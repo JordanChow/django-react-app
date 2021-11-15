@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState }from 'react';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
@@ -6,9 +6,50 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../redux/actions/users';
+import { useHistory } from 'react-router-dom';
 
 export default function RegisterPage() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const [state, setState] = useState({
+        username: '',
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        dispatch(registerUser({
+            username: state.username,
+            email: state.email,
+            password: state.password
+        }))
+        .then(() => {
+            const userData = store.getState().userReducer;
+            if (userData.user) {
+                history.push("/");
+            }
+            else if (userData.error) {
+                console.log(userData.error);
+                setState({
+                    ...state, 
+                    username: "",
+                    email: "",
+                    password: ""
+                });
+            }
+        });
+    }
 
     return (
         <>
@@ -25,6 +66,8 @@ export default function RegisterPage() {
                                     variant="outlined"
                                     fullWidth
                                     label="Username"
+                                    name="username"
+                                    onChange={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={8}>
@@ -34,6 +77,8 @@ export default function RegisterPage() {
                                     fullWidth
                                     label="Email"
                                     type="email"
+                                    name="email"
+                                    onChange={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={8}>
@@ -42,6 +87,9 @@ export default function RegisterPage() {
                                     variant="outlined"
                                     fullWidth
                                     label="Password"
+                                    type="password"
+                                    name="password"
+                                    onChange={handleChange}
                                 />
                             </Grid>
                             <Grid item container justifyContent="center" spacing={1}>
@@ -60,6 +108,7 @@ export default function RegisterPage() {
                                         type="submit"
                                         variant="contained"
                                         color="primary"
+                                        onClick={handleRegister}
                                         >
                                         SUBMIT
                                     </Button>

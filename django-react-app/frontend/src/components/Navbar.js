@@ -29,8 +29,8 @@ const Navbar = () => {
         history.push("/profile");
     }
 
-    const handleLogout = async () => {
-        await dispatch(logoutUser(userData.token));
+    const handleLogout = () => {
+        dispatch(logoutUser(userData.token));
     }
     
     const handleClose = () => {

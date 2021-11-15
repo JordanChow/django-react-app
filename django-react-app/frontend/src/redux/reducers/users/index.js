@@ -66,7 +66,8 @@ export default function userReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        user: action.payload.user
+        user: action.payload.user,
+        token: action.payload.token
       }
     case Types.REGISTER_USER_FAILURE:
       return {

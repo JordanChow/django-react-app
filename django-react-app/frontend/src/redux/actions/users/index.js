@@ -57,6 +57,7 @@ export const registerUser = (user) => async (dispatch) => {
             type: Types.REGISTER_USER_SUCCESS, 
             payload: response.data
         })
+        return Promise.resolve();
     })
     .catch(error => {
         dispatch({

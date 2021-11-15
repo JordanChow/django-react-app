@@ -5,16 +5,14 @@ import { getAllAlbums } from '../redux/actions/albums';
 
 export default function Albums() {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state.albumReducer);
+    const state = useSelector(state => state.albumReducer);
     
     useEffect(() => {
         dispatch(getAllAlbums());
     }, []);
     
     const renderAlbums = () => {
-        if (state.loading) {
-            return <div>Loading...</div>
-        }
+        if (state.loading) return <div></div>
 
         return state.albums.map((el) => {
             return <li key="{el.id}">{el.title}</li>
