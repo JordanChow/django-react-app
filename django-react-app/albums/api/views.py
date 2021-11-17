@@ -19,9 +19,7 @@ class CreateAlbum(generics.CreateAPIView):
     serializer_class = AlbumSerializer
 
 # Update album
-class UpdateAlbum(generics.UpdateAPIView):
-    # permission_classes = [permissions.IsAuthenticated]
-    
+class UpdateAlbum(generics.RetrieveUpdateAPIView):    
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
 

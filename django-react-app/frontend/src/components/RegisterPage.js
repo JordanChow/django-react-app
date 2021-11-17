@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerUser } from '../redux/actions/users';
 import { useHistory } from 'react-router-dom';
 
@@ -49,6 +49,11 @@ export default function RegisterPage() {
                 });
             }
         });
+
+        if(userData.user)
+        {
+            console.log("hi")
+        }
     }
 
     return (

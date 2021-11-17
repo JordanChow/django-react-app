@@ -155,6 +155,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.dirname(BASE_DIR)
+#os.path.join(os.path.dirname(BASE_DIR), 'django-react-app')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
